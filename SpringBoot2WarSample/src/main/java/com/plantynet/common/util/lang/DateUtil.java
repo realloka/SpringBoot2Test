@@ -2,11 +2,15 @@ package com.plantynet.common.util.lang;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 //FIXME JAVA 8 함수를 이용해보자
+/**
+ *
+ */
 public final class DateUtil
 {
     private DateUtil()
@@ -313,4 +317,74 @@ if (weeks < 0) { return date; }
         
         return result;
     }
+    
+    /**
+     * 입력된 일자를 LocalDateTime으로 변경
+     * @param dateTimeStr
+     * @param format(기본값:yyyy-MM-dd HH:mm:ss)
+     * @return
+     */
+    public static LocalDateTime toLocalDateTime(String dateTimeStr, String formatStr)
+    {
+        if(StringUtil.isEmptyOrNull(formatStr))
+        {
+            formatStr = "yyyy-MM-dd HH:mm:ss";
+        }
+        
+        return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern(formatStr));
+    }
+    
+    /**
+     * 입력된 일자를 LocalDate로 변경
+     * @param dateTimeStr
+     * @param format(기본값:yyyy-MM-dd)
+     * @return
+     */
+    public static LocalDate toLocalDate(String dateTimeStr, String formatStr)
+    {
+        if(StringUtil.isEmptyOrNull(formatStr))
+        {
+            formatStr = "yyyy-MM-dd";
+        }
+        
+        return LocalDate.parse(dateTimeStr, DateTimeFormatter.ofPattern(formatStr));
+    }
+    
+    /**
+     * 입력된 일자를 epoch time으로 변경 
+     * @param dateTimeStr
+     * @param format(기본값:yyyy-MM-dd HH:mm:ss)
+     * @return
+     */
+    public static long toEpochSecond(String dateTimeStr, String formatStr)
+    {
+        if(StringUtil.isEmptyOrNull(formatStr))
+        {
+            formatStr = "yyyy-MM-dd HH:mm:ss";
+        }
+        
+        if(formatStr.indexOf("H") > -1 || formatStr.indexOf("h") > -1 || formatStr.indexOf("K") > -1 || formatStr.indexOf("k") > -1)
+        {//하나라도 있다... 
+            LocalDateTime dateTimePoint = toLocalDateTime(dateTimeStr, formatStr);
+            return dateTimePoint.atZone(ZoneId.systemDefault()).toEpochSecond();
+        }
+        else 
+        {//한개도 없다
+            LocalDate datePoint = toLocalDate(dateTimeStr, formatStr);
+            LocalDateTime dateTimePoint = datePoint.atStartOfDay();
+            return dateTimePoint.atZone(ZoneId.systemDefault()).toEpochSecond();
+        }
+    }
+    
+    /*public static void main(String[] args)
+    {
+        LocalDateTime dateTimePoint = toLocalDateTime("2010-11-25 09:00", "yyyy-MM-dd HH:mm");
+        System.out.println(dateTimePoint);//2010-11-25T09:00
+        System.out.println(Date.from(dateTimePoint.atZone(ZoneId.systemDefault()).toInstant()));//Thu Nov 25 09:00:00 KST 2010
+        System.out.println(toEpochSecond("2010-11-25 09:00", "yyyy-MM-dd HH:mm"));//1290643200
+        
+        LocalDate datePoint = toLocalDate("2010-11-25", "yyyy-MM-dd");
+        System.out.println(datePoint);//2010-11-25
+        System.out.println(toEpochSecond("2010-11-25", "yyyy-MM-dd"));//1290643200
+    }*/
 }
