@@ -24,7 +24,9 @@ import com.plantynet.common.base.vo.ColumnCriterias;
 import com.plantynet.common.base.vo.DataTableOutput;
 import com.plantynet.common.base.vo.OrderCriterias;
 import com.plantynet.common.exception.JsonException;
+import com.plantynet.tech2.service.InfluxService;
 import com.plantynet.tech2.service.TestService;
+import com.plantynet.tech2.vo.H2oFeet;
 import com.plantynet.tech2.vo.MailVo;
 import com.plantynet.tech2.vo.TestVo;
 
@@ -52,12 +54,15 @@ public class RestApiController extends BaseController
     private MailVo mailVo;
     
     //@Autowired -> 생성자 주입
-    TestService testService;
+    private TestService testService;
+    
+    private InfluxService influxService;
     
     //@Autowired -> spring 4.3+ 생성자 하나인 경우 자동으로 설정됨
-    public RestApiController(TestService testService)
+    public RestApiController(TestService testService, InfluxService influxService)
     {
         this.testService = testService;
+        this.influxService = influxService;
     }
     
     //@GetMapping(value = "/echo/{id}")
@@ -166,4 +171,10 @@ public class RestApiController extends BaseController
         System.out.println("current page ==> " + dataTable.getPage());
         return dataTable;
     }
+    
+    @GetMapping(path="/h2os")
+	public List<H2oFeet> h2oList() 
+    {
+		return influxService.h2oList();
+	}
 }

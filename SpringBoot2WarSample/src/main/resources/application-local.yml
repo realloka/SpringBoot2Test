@@ -33,6 +33,12 @@ spring:
 #정적인 내용도 자동 리로딩 되게 하기 위해 devtools에서 별도의 서버(port 35729)를 실행해서 
 #브라우저와 연동함(브라우저 플러그인과 통신)
 #필요 없으면 위에처럼 꺼야 함
+  influxdb:
+    url: http://127.0.0.1:8086
+    database: NOAA_water_database
+    username: ~
+    password: ~
+    retentionPolicy: autogen
 ---
 server:
   port: 8187
