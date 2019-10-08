@@ -45,6 +45,7 @@ public class CommonExceptionAdvice
     public String handleException2(Exception ex, Model model)
     {
     	model.addAttribute("exception", ex);
+    	//ex.printStackTrace();
     	
     	return "error/error_default";
     }

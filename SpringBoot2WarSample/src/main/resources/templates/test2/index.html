@@ -92,6 +92,7 @@
 		Logged user: <span sec:authentication="name">1</span><br/>
 		Roles: <span sec:authentication="principal.authorities">2</span><br/>
 		
+		https://javacan.tistory.com/entry/spring-boot-custom-thymeleaf-expression-object 이렇게 하는 방법도 있다<br/>
 		static 함수 사용<span th:text="${'Static Method Test : '+T(com.plantynet.common.util.lang.StringUtil).test('하하하')}">기대값 : Static Method Test : web response</span>
 	</div>
 </div>

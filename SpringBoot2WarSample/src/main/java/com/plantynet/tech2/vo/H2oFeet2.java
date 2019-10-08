@@ -16,15 +16,11 @@ import lombok.ToString;
 @Setter
 @ToString
 @Measurement(name = "h2o_feet")
-public class H2oFeet
+public class H2oFeet2
 {
 	@Column(name = "water_level")
 	private Double water_level;
-	@Column(name = "level description")
-	private String level_description;
-	@Column(name = "location")
-	private String location;
-	@Column(name = "time")//UTC time 이다. 주의하자!!!
+	@Column(name = "time")
 	private Instant time;
 	public String getLocalTime() 
 	{

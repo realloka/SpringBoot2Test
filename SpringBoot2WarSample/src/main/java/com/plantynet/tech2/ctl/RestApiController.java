@@ -175,6 +175,10 @@ public class RestApiController extends BaseController
     @GetMapping(path="/h2os")
 	public List<H2oFeet> h2oList() 
     {
-		return influxService.h2oList();
+    	influxService.h2oList2();
+    	
+    	List<H2oFeet> list = influxService.h2oList();
+    	
+		return list;
 	}
 }
