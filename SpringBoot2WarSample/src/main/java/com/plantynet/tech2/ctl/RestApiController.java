@@ -74,6 +74,8 @@ public class RestApiController extends BaseController
         
         System.out.println(mailVo);
         
+        //if(1 == 1) throw new JsonException("111");
+        
         Map<String, Object> map = new HashMap<>();
         
         log.info("{}, {}", apiVersion, id);

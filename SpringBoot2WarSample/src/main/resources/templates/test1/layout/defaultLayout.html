@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="context-path" th:content="@{/}" />
+
+<title>TEST</title>
+<!-- https://happygram.tistory.com/entry/Spring-Boot-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0-index-UI-Bootstrap-Thymeleaf -->
+<!-- https://anshulgnit.blogspot.com/2018/05/difference-between-thymeleaf-attribute-replace-insert-and-include.html -->
+<!-- https://elfinlas.github.io/2018/02/16/thymeleaf-layout-dialect_exam/ -->
+<!-- Common header -->
+<th:block th:include="test1/include/include-link"></th:block>
+<th:block th:include="test1/include/include-script"></th:block>
+</head>
+<body>
+	<!-- Common script -->
+
+	<div class="wrapper">
+		<!-- Side Bar -->
+		<nav th:replace="test1/include/common-sidebar"></nav>
+		<div id="content">
+			<!-- Page Header -->
+			<header th:replace="test1/include/common-header"></header>
+
+			<!-- Main Content -->
+			<div th:replace="${content}"></div>
+
+			<hr>
+
+			<!-- Footer -->
+			<footer th:replace="test1/include/common-footer"></footer>
+		</div>
+	</div>
+</body>
+</html>

@@ -53,6 +53,10 @@ dependencies {
     //implementation 'org.springframework.data:spring-data-commons' //spring-starter-data-jpa 선언하면 추가할 필요 없음
     //암호화
     implementation group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '2.1.1' 
+	//thymeleaf :  spring security
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	//thymeleaf : 레이아웃
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
 
 //수동 추가

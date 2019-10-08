@@ -1,0 +1,76 @@
+<div class="jumbotron jumbotron-fluid">
+	<div class="container">
+		<h1 class="display-5">jquery validation</h1>
+		<style type="text/css">
+			#commentForm label.error { margin-left: 10px; color:red; }
+		</style>
+		<script type="text/javascript">
+		$(function() {
+			//alert으로 변경
+			$.validator.setDefaults({
+				onkeyup : false,
+				onclick : false,
+				onfocusout : false,
+				showErrors : function(errorMap, errorList) {
+					if (this.numberOfInvalids()) {
+						alert(errorList[0].message);
+					}
+				}
+			});
+			
+			$("#commentForm").validate({
+				submitHandler: function(form) {
+					// 필요에 따라 ajax를 사용한 제출등으로 변경가능.
+					//form.submit();
+				}
+			});
+		});
+	</script>
+		<form class="cmxform" id="commentForm" method="get" action="return false;">
+			<fieldset>
+				<legend>이름, 이메일, 의견을 입력해주세요.</legend>
+				<p>
+					<label for="cname">이름 (필수, 2 자 이상)</label> <input id="cname" name="name" minlength="2" type="text" required>
+				</p>
+				<p>
+					<label for="cemail">이메일 (필수)</label> <input id="cemail" type="email" name="email" required>
+				</p>
+				<p>
+					<label for="curl">URL (선택)</label> <input id="curl" type="url" name="url">
+				</p>
+				<p>
+					<label for="ccomment">의견 (필수)</label>
+					<textarea id="ccomment" name="comment" required></textarea>
+				</p>
+				<p>
+					<input class="submit" type="submit" value="Submit">
+				</p>
+			</fieldset>
+		</form>
+		기본적인 처리 (추가 jar 안 쓰고)
+		
+		https://offbyone.tistory.com/50 <br/>
+		https://skibis.tistory.com/267 <br>
+		https://cpdev.tistory.com/84<br/>
+		https://www.thymeleaf.org/doc/articles/springsecurity.html<br/>
+		https://github.com/thymeleaf/thymeleaf-extras-springsecurity<br/>
+		https://doanduyhai.wordpress.com/2012/04/14/spring-mvc-part-iv-thymeleaf-advanced-usage/<br/>
+		https://github.com/thymeleaf/thymeleaf/issues/593<br/>
+		<br/>
+		//org.thymeleaf.extras:thymeleaf-extras-springsecurity5를 넣어줘야지만 된다.
+		<div sec:authorize="isAuthenticated()">
+			This content is only shown to authenticated users.
+		</div>
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			This content is only shown to administrators.
+		</div>
+		<div sec:authorize="hasRole('ROLE_USER')">
+			This content is only shown to users.
+		</div>
+		Logged user: <span sec:authentication="name">1</span><br/>
+		Roles: <span sec:authentication="principal.authorities">2</span><br/>
+		
+		
+		static 함수 사용<span th:text="${'Static Method Test : '+T(com.plantynet.common.util.lang.StringUtil).test('하하하')}">기대값 : Static Method Test : web response</span>
+	</div>
+</div>

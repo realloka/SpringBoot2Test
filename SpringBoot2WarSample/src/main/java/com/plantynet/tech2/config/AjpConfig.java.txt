@@ -1,0 +1,65 @@
+package com.plantynet.tech2.config;
+
+import org.apache.catalina.connector.Connector;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AjpConfig
+{
+	//spring boot 1.x
+	/*@Bean
+	public EmbeddedServletContainerCustomizer containerCustomizer()
+	{
+		return container -> {
+			
+			TomcatEmbeddedServletContainerFactory tomcat = (TomcatEmbeddedServletContainerFactory) container;
+			
+			Connector ajpConnector = new Connector("AJP/1.3");
+			//ajpConnector.setProtocol("AJP/1.3");
+			ajpConnector.setPort(9090);
+			ajpConnector.setSecure(false);
+			ajpConnector.setAllowTrace(false);
+			ajpConnector.setScheme("http");
+			tomcat.addAdditionalTomcatConnectors(ajpConnector);
+		};
+		
+	}*/
+	
+	@Bean
+	public ServletWebServerFactory serverFactory() 
+	{
+		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
+		
+		tomcat.addAdditionalTomcatConnectors(createAjpConnector());
+		//tomcat.setUriEncoding(Charset.forName("EUC-KR"));
+		
+		return tomcat;
+	}
+	
+	//AJP connector만 띄우는 방법은 없는 것 같다.
+	private Connector createAjpConnector() 
+	{
+		Connector ajpConnector = new Connector("AJP/1.3");
+		
+		ajpConnector.setPort(9090);
+		ajpConnector.setSecure(false);
+		ajpConnector.setAllowTrace(false);
+		ajpConnector.setScheme("http");
+		
+		return ajpConnector;
+	}
+
+	//https를 활성화 시키면 http는 안 된다고 함 (server.port -> http, https 둘 중 하나로만 동작)
+	//이때는 아래처럼 추가로 connector를 등록해야 함
+	/*private Connector createStandardConnector() 
+	{
+		Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
+		
+		connector.setPort(80);
+		
+		return connector;
+	}*/
+}

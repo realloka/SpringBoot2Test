@@ -1,0 +1,24 @@
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ 
+    <!-- 부트 스트랩 관련 CSS -->
+    <link th:href="@{/base/js/bootstrap/bootstrap.min.css}" rel="stylesheet">
+    <!-- 공통 CSS -->
+ 
+    <!-- 컨텐츠 페이지 CSS 삽입 -->
+    <th:block layout:fragment="pageCustomCss"></th:block>
+    
+    <!-- 공통 javascript -->
+    <script th:src="@{/base/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/base/js/valid/jquery.validate.min.js}"></script>
+    <script th:src="@{/base/js/valid/messages_ko.min.js}"></script>
+
+    <!-- 부트스트랩 관련 JS -->
+    <script th:src="@{/base/js/popper.min.js}"></script>
+    <script th:src="@{/base/js/bootstrap/bootstrap.min.js}"></script>
+    
+    <!--/* comment : <th:block th:replace="test2/include/commonScript"></th:block> */-->
+    
+    <!-- page content javascript -->
+    <th:block layout:fragment="pageCustomScript"></th:block>

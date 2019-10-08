@@ -19,17 +19,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
         
+        //기본적으로 시큐리티에서 no cache 설정을 한다고 함
+        //https://silvernine.me/wp/?p=1005 -> xss 필터 적용 관련
         http
             .authorizeRequests()
                 .antMatchers("/api/**").permitAll()
+                .antMatchers("/base/**").permitAll()
+                .antMatchers("/images/**").permitAll()
                 //.antMatchers("/**").hasRole("USER")
                 //.anyRequest().authenticated()
                 .antMatchers("/**").authenticated()
             .and()
                 .formLogin()
+                .defaultSuccessUrl("/test1/")
                 /*.loginPage("/login.do")
-                .defaultSuccessUrl("/test/")
                 .loginProcessingUrl("/loginAction.do")
                 .permitAll()*/
             .and()

@@ -286,4 +286,9 @@ public final class StringUtil
             }
         }
     }
+    
+    public static String test(String var)
+    {
+    	return var + " response";
+    }
 }
