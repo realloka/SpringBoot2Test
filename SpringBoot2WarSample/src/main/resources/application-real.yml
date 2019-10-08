@@ -40,3 +40,6 @@ server:
 custom:
   # 1시간에 한번
   schedule: '0 0 0/1 * * ?'
+  # apache 등에서 static resoure 사용하기 위해...
+  static:
+    location: file:///D:/git/github/SpringBoot2WarSample/static

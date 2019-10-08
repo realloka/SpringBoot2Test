@@ -32,6 +32,11 @@ spring:
         core-size: 4
         max-size: 40
         queue-capacity: 160
+#server:
+  #error:
+    #path: /error2 #path를 바꿔도 계속 whitelabel로 나온다-_-
+    #whitelabel:
+      #enabled: false #tomcat default error 페이지 표시 : false인 경우
 ---
 # mybatis 설정
 mybatis:
