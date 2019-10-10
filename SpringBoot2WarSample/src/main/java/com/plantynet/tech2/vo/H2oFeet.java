@@ -27,7 +27,7 @@ public class H2oFeet
 	@Column(name = "time")//UTC time 이다. 주의하자!!!
 	private Instant time;
 	public String getLocalTime() 
-	{
+	{//epoch 타임 또는 UTC 타임존 기준의 시간이므로 우리나라 시간으로 변경해야 함
 		LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(this.time.getEpochSecond()), ZoneId.systemDefault());
 		
 		return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

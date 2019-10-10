@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.plantynet.common.base.ctl.BaseController;
 import com.plantynet.common.base.vo.ColumnCriterias;
@@ -53,7 +54,7 @@ public class TestController extends BaseController
 	}
 	
 	@GetMapping("/test2/list")
-	public String templateList(TestVo testVo, Model model)
+	public String templateList(@ModelAttribute("search")TestVo testVo, Model model)
 	{
 		testVo.setLength(5);
 		

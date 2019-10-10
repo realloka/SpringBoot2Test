@@ -56,7 +56,7 @@ $(document).ready( function () {
     });
     
     dataTableObj.DataTable({
-        "pageLength": 5,
+        "pageLength": [[${search.length}]],
         "paging": true,
         "pagingType" : "full_numbers",
         "lengthChange": true,
