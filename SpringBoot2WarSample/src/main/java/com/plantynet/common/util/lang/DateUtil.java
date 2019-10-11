@@ -7,17 +7,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-//FIXME JAVA 8 함수를 이용해보자
-/**
- *
- */
 public final class DateUtil
 {
     private DateUtil()
     {
         throw new AssertionError();
         
-/*        LocalDateTime timePoint = LocalDateTime.now();
+        /*     
+        //JDK8
+        LocalDateTime timePoint = LocalDateTime.now();
         //포맷변환
         timePoint.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         //다음날
@@ -26,11 +24,22 @@ public final class DateUtil
         timePoint.minusHours(3).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-
+        
         String date = "16/08/2016";
-
+        
         //convert String to LocalDate
-        LocalDate localDate = LocalDate.parse(date, formatter);*/
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        
+        //epoch
+        LocalDateTime dateTimePoint = toLocalDateTime("2010-11-25 09:00", "yyyy-MM-dd HH:mm");
+        System.out.println(dateTimePoint);//2010-11-25T09:00
+        System.out.println(Date.from(dateTimePoint.atZone(ZoneId.systemDefault()).toInstant()));//Thu Nov 25 09:00:00 KST 2010
+        System.out.println(toEpochSecond("2010-11-25 09:00", "yyyy-MM-dd HH:mm"));//1290643200
+        
+        LocalDate datePoint = toLocalDate("2010-11-25", "yyyy-MM-dd");
+        System.out.println(datePoint);//2010-11-25
+        System.out.println(toEpochSecond("2010-11-25", "yyyy-MM-dd"));//1290643200
+        */
     }
     
     /**
@@ -68,136 +77,166 @@ public final class DateUtil
     
     /**
      * 이전 날짜 구하기
-     * @param date
+     * @param dateTimeStr
      * @param days
      * @param formatStr(기본값:yyyy-MM-dd)
      * @return
      */
-    public static String getPrevDate(String date, int days, String formatStr)
+    public static String getPrevDate(String dateTimeStr, int days, String formatStr)
     {
-        if (days < 0) { return date; }
+        if (days < 0) { return dateTimeStr; }
         if(StringUtil.isEmptyOrNull(formatStr))
         {
             formatStr = "yyyy-MM-dd";
         }
         
+        if(dateTimeStr.length() != formatStr.length())
+        {
+            return dateTimeStr;
+        }
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
         
-        LocalDate timePoint = LocalDate.parse(date, formatter);
+        LocalDate timePoint = LocalDate.parse(dateTimeStr, formatter);
         
         return timePoint.minusDays(days).format(formatter);
     }
     
     /**
      * 이후 날짜 구하기
-     * @param date
+     * @param dateTimeStr
      * @param days
      * @param formatStr(기본값:yyyy-MM-dd)
      * @return
      */
-    public static String getNextDate(String date, int days, String formatStr)
+    public static String getNextDate(String dateTimeStr, int days, String formatStr)
     {
-        if (days < 0) { return date; }
+        if (days < 0) { return dateTimeStr; }
         if(StringUtil.isEmptyOrNull(formatStr))
         {
             formatStr = "yyyy-MM-dd";
         }
         
+        if(dateTimeStr.length() != formatStr.length())
+        {
+            return dateTimeStr;
+        }
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
         
-        LocalDate timePoint = LocalDate.parse(date, formatter);
+        LocalDate timePoint = LocalDate.parse(dateTimeStr, formatter);
         
         return timePoint.plusDays(days).format(formatter);
     }
     
     /**
      * 이전 주 날짜 구하기
-     * @param date
+     * @param dateTimeStr
      * @param weeks
      * @param formatStr(기본값:yyyy-MM-dd)
      * @return
      */
-    public static String getPrevWeekDate(String date, int weeks, String formatStr)
+    public static String getPrevWeekDate(String dateTimeStr, int weeks, String formatStr)
     {
-        if (weeks < 0) { return date; }
+        if (weeks < 0) { return dateTimeStr; }
         
         if(StringUtil.isEmptyOrNull(formatStr))
         {
             formatStr = "yyyy-MM-dd";
         }
         
+        if(dateTimeStr.length() != formatStr.length())
+        {
+            return dateTimeStr;
+        }
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
         
-        LocalDate timePoint = LocalDate.parse(date, formatter);
+        LocalDate timePoint = LocalDate.parse(dateTimeStr, formatter);
         
         return timePoint.minusWeeks(weeks).format(formatter);
     }
     
     /**
      * 다음 주 날짜 구하기
-     * @param date
+     * @param dateTimeStr
      * @param weeks
      * @param formatStr(기본값:yyyy-MM-dd)
      * @return
      */
-    public static String getNextWeekDate(String date, int weeks, String formatStr)
+    public static String getNextWeekDate(String dateTimeStr, int weeks, String formatStr)
     {
-if (weeks < 0) { return date; }
+        if (weeks < 0) { return dateTimeStr; }
         
         if(StringUtil.isEmptyOrNull(formatStr))
         {
             formatStr = "yyyy-MM-dd";
         }
         
+        if(dateTimeStr.length() != formatStr.length())
+        {
+            return dateTimeStr;
+        }
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
         
-        LocalDate timePoint = LocalDate.parse(date, formatter);
+        LocalDate timePoint = LocalDate.parse(dateTimeStr, formatter);
         
         return timePoint.plusWeeks(weeks).format(formatter);
     }
     
     /**
      * 이전 달 날짜 구하기
-     * @param date
+     * @param dateTimeStr
      * @param months
      * @param formatStr(기본값:yyyy-MM-dd)
      * @return
      */
-    public static String getPrevMonthDate(String date, int months, String formatStr)
+    public static String getPrevMonthDate(String dateTimeStr, int months, String formatStr)
     {
-        if (months < 0) { return date; }
+        if (months < 0) { return dateTimeStr; }
         
         if(StringUtil.isEmptyOrNull(formatStr))
         {
             formatStr = "yyyy-MM-dd";
         }
         
+        if(dateTimeStr.length() != formatStr.length())
+        {
+            return dateTimeStr;
+        }
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
         
-        LocalDate timePoint = LocalDate.parse(date, formatter);
+        LocalDate timePoint = LocalDate.parse(dateTimeStr, formatter);
         
         return timePoint.minusMonths(months).format(formatter);
     }
     
     /**
      * 다음 달 날짜 구하기
-     * @param date
+     * @param dateTimeStr
      * @param months
      * @param formatStr(기본값:yyyy-MM-dd)
      * @return
      */
-    public static String getNextMonthDate(String date, int months, String formatStr)
+    public static String getNextMonthDate(String dateTimeStr, int months, String formatStr)
     {
-        if (months < 0) { return date; }
+        if (months < 0) { return dateTimeStr; }
         
         if(StringUtil.isEmptyOrNull(formatStr))
         {
             formatStr = "yyyy-MM-dd";
         }
         
+        if(dateTimeStr.length() != formatStr.length())
+        {
+            return dateTimeStr;
+        }
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
         
-        LocalDate timePoint = LocalDate.parse(date, formatter);
+        LocalDate timePoint = LocalDate.parse(dateTimeStr, formatter);
         
         return timePoint.plusMonths(months).format(formatter);
     }
@@ -363,6 +402,11 @@ if (weeks < 0) { return date; }
             formatStr = "yyyy-MM-dd HH:mm:ss";
         }
         
+        if(dateTimeStr.length() != formatStr.length())
+        {
+            return -1;
+        }
+        
         if(formatStr.indexOf("H") > -1 || formatStr.indexOf("h") > -1 || formatStr.indexOf("K") > -1 || formatStr.indexOf("k") > -1)
         {//하나라도 있다... 
             LocalDateTime dateTimePoint = toLocalDateTime(dateTimeStr, formatStr);
@@ -375,16 +419,4 @@ if (weeks < 0) { return date; }
             return dateTimePoint.atZone(ZoneId.systemDefault()).toEpochSecond();
         }
     }
-    
-    /*public static void main(String[] args)
-    {
-        LocalDateTime dateTimePoint = toLocalDateTime("2010-11-25 09:00", "yyyy-MM-dd HH:mm");
-        System.out.println(dateTimePoint);//2010-11-25T09:00
-        System.out.println(Date.from(dateTimePoint.atZone(ZoneId.systemDefault()).toInstant()));//Thu Nov 25 09:00:00 KST 2010
-        System.out.println(toEpochSecond("2010-11-25 09:00", "yyyy-MM-dd HH:mm"));//1290643200
-        
-        LocalDate datePoint = toLocalDate("2010-11-25", "yyyy-MM-dd");
-        System.out.println(datePoint);//2010-11-25
-        System.out.println(toEpochSecond("2010-11-25", "yyyy-MM-dd"));//1290643200
-    }*/
 }

@@ -12,6 +12,7 @@ import org.influxdb.impl.InfluxDBResultMapper;
 import org.springframework.data.influxdb.InfluxDBTemplate;
 import org.springframework.stereotype.Service;
 
+import com.plantynet.common.util.lang.DateUtil;
 import com.plantynet.tech2.service.InfluxService;
 import com.plantynet.tech2.vo.H2oFeet;
 import com.plantynet.tech2.vo.H2oFeet2;
@@ -55,8 +56,9 @@ public class InfluxServiceImpl implements InfluxService
 		
 		Query query = QueryBuilder.newQuery("SELECT MEAN(water_level) as mean_level FROM h2o_feet WHERE location='coyote_creek' AND time >= $startTime AND time <= $endTime GROUP BY time(3m,6m) fill(0)")
 				.forDatabase("NOAA_water_database")
-				.bind("startTime", 1439856360000000000L)//long type
-				.bind("startTime", "2015-08-18T00:06:00Z")
+				//.bind("startTime", "2015-08-18T00:06:00Z")
+				//.bind("startTime", 1439856360000000000L)//long type
+				.bind("startTime", DateUtil.toEpochSecond("2015-08-18 09:06:00", "yyyy-MM-dd HH:mm:ss")*1000_000_000)
 				.bind("endTime", "2015-08-18T00:54:00Z")
 				.create();
 		
