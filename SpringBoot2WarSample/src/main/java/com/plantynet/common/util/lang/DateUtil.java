@@ -84,7 +84,7 @@ public final class DateUtil
      */
     public static String getPrevDate(String dateTimeStr, int days, String formatStr)
     {
-        if (days < 0) { return dateTimeStr; }
+        if (days < 0) { return "-1"; }
         if(StringUtil.isEmptyOrNull(formatStr))
         {
             formatStr = "yyyy-MM-dd";
@@ -92,7 +92,7 @@ public final class DateUtil
         
         if(dateTimeStr.length() != formatStr.length())
         {
-            return dateTimeStr;
+            return "-1";
         }
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
@@ -111,7 +111,7 @@ public final class DateUtil
      */
     public static String getNextDate(String dateTimeStr, int days, String formatStr)
     {
-        if (days < 0) { return dateTimeStr; }
+        if (days < 0) { return "-1"; }
         if(StringUtil.isEmptyOrNull(formatStr))
         {
             formatStr = "yyyy-MM-dd";
@@ -119,7 +119,7 @@ public final class DateUtil
         
         if(dateTimeStr.length() != formatStr.length())
         {
-            return dateTimeStr;
+            return "-1";
         }
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
@@ -138,7 +138,7 @@ public final class DateUtil
      */
     public static String getPrevWeekDate(String dateTimeStr, int weeks, String formatStr)
     {
-        if (weeks < 0) { return dateTimeStr; }
+        if (weeks < 0) { return "-1"; }
         
         if(StringUtil.isEmptyOrNull(formatStr))
         {
@@ -147,7 +147,7 @@ public final class DateUtil
         
         if(dateTimeStr.length() != formatStr.length())
         {
-            return dateTimeStr;
+            return "-1";
         }
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
@@ -166,7 +166,7 @@ public final class DateUtil
      */
     public static String getNextWeekDate(String dateTimeStr, int weeks, String formatStr)
     {
-        if (weeks < 0) { return dateTimeStr; }
+        if (weeks < 0) { return "-1"; }
         
         if(StringUtil.isEmptyOrNull(formatStr))
         {
@@ -175,7 +175,7 @@ public final class DateUtil
         
         if(dateTimeStr.length() != formatStr.length())
         {
-            return dateTimeStr;
+            return "-1";
         }
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
@@ -194,7 +194,7 @@ public final class DateUtil
      */
     public static String getPrevMonthDate(String dateTimeStr, int months, String formatStr)
     {
-        if (months < 0) { return dateTimeStr; }
+        if (months < 0) { return "-1"; }
         
         if(StringUtil.isEmptyOrNull(formatStr))
         {
@@ -203,7 +203,7 @@ public final class DateUtil
         
         if(dateTimeStr.length() != formatStr.length())
         {
-            return dateTimeStr;
+            return "-1";
         }
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
@@ -222,7 +222,7 @@ public final class DateUtil
      */
     public static String getNextMonthDate(String dateTimeStr, int months, String formatStr)
     {
-        if (months < 0) { return dateTimeStr; }
+        if (months < 0) { return "-1"; }
         
         if(StringUtil.isEmptyOrNull(formatStr))
         {
@@ -231,7 +231,7 @@ public final class DateUtil
         
         if(dateTimeStr.length() != formatStr.length())
         {
-            return dateTimeStr;
+            return "-1";
         }
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatStr);
@@ -299,11 +299,11 @@ public final class DateUtil
             }
         }
         
-        if (!isCorrect) { return ""; }
+        if (!isCorrect) { return "-1"; }
         
         if (strDate.length() != 8)
         {
-            if (strDate.length() != 6 && strDate.length() != 10) { return ""; }
+            if (strDate.length() != 6 && strDate.length() != 10) { return "-1"; }
             
             if (strDate.length() == 6)
             {
@@ -370,6 +370,11 @@ public final class DateUtil
             formatStr = "yyyy-MM-dd HH:mm:ss";
         }
         
+        if(dateTimeStr.length() != formatStr.length())
+        {
+            return LocalDateTime.MIN;
+        }
+        
         return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern(formatStr));
     }
     
@@ -384,6 +389,11 @@ public final class DateUtil
         if(StringUtil.isEmptyOrNull(formatStr))
         {
             formatStr = "yyyy-MM-dd";
+        }
+        
+        if(dateTimeStr.length() != formatStr.length())
+        {
+            return LocalDate.MIN;
         }
         
         return LocalDate.parse(dateTimeStr, DateTimeFormatter.ofPattern(formatStr));
